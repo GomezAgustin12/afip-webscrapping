@@ -1,0 +1,11 @@
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+.env
+
+# Ignore all files in the invoices directory except for the specified PDF
+src/invoices/*
+!src/invoices/here-goes-the-invoices.pdf
