@@ -9,3 +9,4 @@ node_modules/
 # Ignore all files in the invoices directory except for the specified PDF
 src/invoices/*
 !src/invoices/here-goes-the-invoices.pdf
+.DS_Store

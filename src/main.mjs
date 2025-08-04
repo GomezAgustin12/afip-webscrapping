@@ -33,6 +33,8 @@ await afip.fillInvoiceDetailsPart3();
 
 await afip.confirmInvoice();
 
+await afip.download();
+
 // Get and move the invoice file
 const fileService = new FileService();
 const downloadsPath = `${process.env.HOME}/Downloads`;
@@ -40,7 +42,7 @@ const destFolder = `${process.cwd()}/src/invoices`;
 
 const lastModifiedFile = await fileService.getLastModifiedFileByPrefix(
   downloadsPath,
-  USER_CUIT
+  process.env.USER_CUIT
 );
 const originFilePath = `${downloadsPath}/${lastModifiedFile}`;
 await fileService.moveFile({

@@ -156,15 +156,32 @@ export class Afip {
 
   async confirmInvoice() {
     console.log("[confirmInvoice] Confirming invoice");
+    // Check if "input[value='Confirmar Datos...']" is on the page
+    const confirmButton = await this.invoicePage.$(
+      "input[value='Confirmar Datos...']"
+    );
+    while (confirmButton) {
+      try {
+        await confirmButton.click(); // FIX: removed selector argument
+        this.invoicePage.once("dialog", async (dialog) => {
+          await dialog.accept();
+        });
+      } catch (error) {
+        break; // Exit the loop if an error occurs
+      }
+    }
+  }
+
+  async download() {
+    console.log("[download] Downloading invoice");
     try {
-      await this.invoicePage.click("input[value='Confirmar Datos...']");
+      await this.invoicePage.click("input[value='Imprimir...']");
       this.invoicePage.once("dialog", async (dialog) => {
         await dialog.accept();
       });
-      await this.invoicePage.click("input[value='Imprimir...']");
     } catch (error) {
-      console.log("[confirmInvoice] Error:", error);
-      throw error;
+      console.log("[download] Error:", error);
+      alert("Error al descargar la factura");
     }
   }
 }
